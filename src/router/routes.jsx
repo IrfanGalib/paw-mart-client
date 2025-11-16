@@ -26,7 +26,7 @@ export const router = createBrowserRouter([
         element: <AddListing />,
       },
       {
-        path: "myListing",
+        path: "/myListing",
         element: <MyListings />,
       },
       {
