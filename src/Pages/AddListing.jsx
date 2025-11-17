@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Swal from "sweetalert2";
+import { AuthContext } from "../Context/AuthContext";
 
 const saveListingToDatabase = async (data) => {
   console.log("Saving to DB:", data);
@@ -10,8 +11,9 @@ const saveListingToDatabase = async (data) => {
 };
 
 const AddListing = () => {
+  const { user } = useContext(AuthContext);
+  console.log(user);
   const [selectedCategory, setSelectedCategory] = useState("");
-
   const [price, setPrice] = useState("");
 
   // Categories data
