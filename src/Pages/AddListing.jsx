@@ -12,6 +12,8 @@ const saveListingToDatabase = async (data) => {
 const AddListing = () => {
   const [selectedCategory, setSelectedCategory] = useState("");
 
+  const [price, setPrice] = useState("");
+
   // Categories data
   const categories = ["Pets", "Pet Food", "Accessories", "Pet Care Products"];
 
@@ -121,7 +123,7 @@ const AddListing = () => {
                 ))}
               </select>
 
-              {/* Price (Conditional Input) */}
+              {/* Price */}
               <label className="label">Price (USD)</label>
               {selectedCategory !== "Pets" ? (
                 <input
@@ -129,7 +131,8 @@ const AddListing = () => {
                   name="price"
                   className="input input-bordered"
                   placeholder="Price"
-                  // Price is required only when not 'Pets'
+                  value={price}
+                  onChange={(e) => setPrice(e.target.value)}
                   required={selectedCategory !== "Pets"}
                 />
               ) : (
@@ -140,7 +143,6 @@ const AddListing = () => {
                     className="input input-bordered"
                     value={0}
                     disabled
-                    // Not required when disabled
                   />
                   <p className="text-xs text-red-500 mt-1">
                     Price is set to 0 (Free for Adoption).
