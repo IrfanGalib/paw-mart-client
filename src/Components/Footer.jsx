@@ -74,7 +74,7 @@ const Footer = () => {
         </nav>
       </footer>
       <div>
-        <aside className="footer sm:footer-horizontal footer-center bg-[#001F41] font-semibold text-white  p-4">
+        <aside className="footer sm:footer-horizontal footer-center bg-[#001F41] font-semibold text-white p-4">
           <p>
             Copyright © {new Date().getFullYear()} - All right reserved by{" "}
             PawMart
