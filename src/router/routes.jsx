@@ -4,10 +4,10 @@ import Home from "../Pages/Home";
 import AddListing from "../Pages/AddListing";
 import MyOrders from "../Pages/MyOrders";
 import MyListings from "../Pages/MyListings";
-import { createBrowserRouter } from "react-router";
+import { createBrowserRouter } from "react-router-dom";
 import PetsAndSupplies from "../Pages/PetsAndSupplies";
-import login from "../Pages/login";
-import register from "../Pages/register";
+import Login from "../Pages/Login";
+import Register from "../Pages/Register";
 import PrivetRoutes from "../Routes/PrivetRoutes";
 import ListingDetails from "../Pages/ListingDetails";
 
@@ -22,16 +22,20 @@ export const router = createBrowserRouter([
       },
       {
         path: "/login",
-        Component: login,
+        element: <Login />,
       },
       {
         path: "/register",
-        Component: register,
+        element: <Register />,
       },
       {
         path: "/petsAndSupplies",
         element: <PetsAndSupplies />,
-        loader: () => fetch("http://localhost:3000/listing"),
+        loader: async () => {
+          const res = await fetch("http://localhost:3000/listing");
+          if (!res.ok) throw new Error("Failed to fetch listings");
+          return res.json();
+        },
       },
       {
         path: "/addListing",
