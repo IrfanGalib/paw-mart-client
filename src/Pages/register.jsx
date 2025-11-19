@@ -51,9 +51,10 @@ const Register = () => {
 
     try {
       const result = await createUser(email, password);
-      console.log(result.user);
+      console.log("Firebase user:", result.user);
 
       const newUser = { name, email, image: photoURL };
+
       const res = await fetch("http://localhost:3000/users", {
         method: "POST",
         headers: {
@@ -63,7 +64,10 @@ const Register = () => {
       });
 
       const data = await res.json();
-      console.log("Data After User Save", data);
+
+      if (!data.success) {
+        throw new Error("Database save failed");
+      }
 
       Swal.fire({
         icon: "success",
@@ -79,7 +83,7 @@ const Register = () => {
       Swal.fire({
         icon: "error",
         title: "Registration Failed",
-        text: error.message || "An unknown error occurred during registration.",
+        text: error.message || "Unknown error occurred.",
       });
     }
   };
@@ -104,7 +108,10 @@ const Register = () => {
         })
           .then((res) => res.json())
           .then((data) => {
-            console.log("Data After User Save", data);
+            if (!data.success) {
+              throw new Error("DB save failed");
+            }
+
             Swal.fire({
               icon: "success",
               title: "Login Successful!",
@@ -112,6 +119,7 @@ const Register = () => {
               showConfirmButton: false,
               timer: 1500,
             });
+
             navigate("/");
           })
           .catch((dbError) => {
@@ -119,17 +127,16 @@ const Register = () => {
             Swal.fire({
               icon: "warning",
               title: "Login Successful, DB Save Failed",
-              text: "You are logged in, but we couldn't save your profile data.",
+              text: "You are logged in, but data was not saved.",
             });
             navigate("/");
           });
       })
       .catch((authError) => {
-        console.error("Google Auth Error:", authError);
         Swal.fire({
           icon: "error",
           title: "Authentication Failed",
-          text: authError.message || "Could not sign in with Google.",
+          text: authError.message,
         });
       });
   };
@@ -164,6 +171,15 @@ const Register = () => {
 
               {/* Email */}
               <label className="label">Email</label>
+              <input
+                type="email"
+                name="email"
+                className="input input-bordered"
+                placeholder="Your Email"
+                value={formData.email}
+                onChange={handleFormChange}
+                required
+              />
               <input
                 type="email"
                 name="email"
@@ -243,7 +259,7 @@ const Register = () => {
                   ></path>
                 </g>
               </svg>
-              Login with Google
+              Sign up with Google
             </button>
           </form>
         </div>

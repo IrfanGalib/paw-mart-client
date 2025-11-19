@@ -37,47 +37,41 @@ const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
-      setUser(currentUser);
+  const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+    setUser(currentUser);
 
-      if (currentUser) {
-        const loggedUser = { email: currentUser.email };
-        try {
-          const token = await currentUser.getIdToken();
+    if (currentUser) {
+      const loggedUser = { email: currentUser.email };
 
-          const res = await fetch("http://localhost:3000/getToken", {
-            method: "POST",
-            headers: {
-              "content-type": "application/json",
+      try {
+        const res = await fetch("http://localhost:3000/getToken", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(loggedUser),
+        });
 
-              Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify(loggedUser),
-          });
+        const data = await res.json();
 
-          const data = await res.json();
-
-          if (res.ok && data.token) {
-            console.log("Custom Token Received:", data.token);
-            localStorage.setItem("token", data.token);
-          } else {
-            console.error("Server failed to issue custom token:", data);
-            localStorage.removeItem("token");
-          }
-        } catch (error) {
-          console.error("Token fetch failed:", error);
-          localStorage.removeItem("token");
+        if (data.token) {
+        
+          localStorage.setItem("token", data.token);
         }
-      } else {
+      } catch (error) {
+        console.error("Token fetch failed:", error);
         localStorage.removeItem("token");
       }
-      setLoading(false);
-    });
+    } else {
+      localStorage.removeItem("token");
+    }
 
-    return () => {
-      unsubscribe();
-    };
-  }, []);
+    setLoading(false);
+  });
+
+  return () => unsubscribe();
+}, []);
+
 
   const authInfo = {
     createUser,

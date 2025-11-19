@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom"; 
+import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { AuthContext } from "../Context/AuthContext";
 
@@ -33,7 +33,7 @@ const Login = () => {
         timer: 2000,
       });
 
-      navigate("/"); 
+      navigate("/");
     } catch (error) {
       console.error("Login Error:", error);
       Swal.fire({
@@ -122,6 +122,15 @@ const Login = () => {
 
               {/* Password */}
               <label className="label">Password</label>
+              <input
+                type="password"
+                name="password"
+                className="input input-bordered"
+                placeholder="Password"
+                value={formData.password}
+                onChange={handleFormChange}
+                required
+              />
               <input
                 type="password"
                 name="password"
