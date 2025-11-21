@@ -2,26 +2,17 @@ import React, { useContext, useState } from "react";
 import Swal from "sweetalert2";
 import { AuthContext } from "../Context/AuthContext";
 
-const saveListingToDatabase = async (data) => {
-  console.log("Saving to DB:", data);
-
-  await new Promise((resolve) => setTimeout(resolve, 1000));
-
-  return { success: true, message: "Listing added successfully!" };
-};
-
 const AddListing = () => {
   const { user } = useContext(AuthContext);
-  console.log(user);
+
   const [selectedCategory, setSelectedCategory] = useState("");
   const [price, setPrice] = useState("");
 
-  // Categories data
+  // Categories
   const categories = ["Pets", "Pet Food", "Accessories", "Pet Care Products"];
 
   const handleCategoryChange = (e) => {
-    const newCategory = e.target.value;
-    setSelectedCategory(newCategory);
+    setSelectedCategory(e.target.value);
   };
 
   const handleSubmit = async (e) => {
@@ -41,49 +32,50 @@ const AddListing = () => {
       description: form.description.value,
       image: form.image.value,
       date: form.date.value,
-      email: form.email.value,
+      email: user?.email,
     };
 
-    fetch("http://localhost:3000/listing", {
+    console.log("Sending Data:", listingData);
+
+    fetch("http://localhost:3000/listings", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        authorization: `Bearer ${localStorage.getItem("token")}`,
       },
       body: JSON.stringify(listingData),
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        console.log("MongoDB Response:", data);
+
+        if (data.success) {
+          Swal.fire({
+            icon: "success",
+            title: "Listing Added!",
+            text: "Your listing has been saved.",
+            showConfirmButton: false,
+            timer: 2000,
+          });
+
+          form.reset();
+          setSelectedCategory("");
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Failed",
+            text: data.message || "Could not save listing.",
+          });
+        }
       })
       .catch((err) => {
-        console.log(err);
-      });
-
-    console.log("Submitted Data:", listingData);
-
-    try {
-      const response = await saveListingToDatabase(listingData);
-
-      if (response.success) {
+        console.error(err);
         Swal.fire({
-          icon: "success",
-          title: "Listing Added!",
-          text: "Your new listing has been successfully saved to the database.",
-          showConfirmButton: false,
-          timer: 3000,
+          icon: "error",
+          title: "Submission Error",
+          text: "Failed to submit listing.",
         });
-
-        form.reset();
-        setSelectedCategory("");
-      }
-    } catch (error) {
-      console.error("Submission Error:", error);
-      Swal.fire({
-        icon: "error",
-        title: "Submission Failed",
-        text: error.message || "There was an issue saving your listing.",
       });
-    }
   };
 
   return (
@@ -102,11 +94,11 @@ const AddListing = () => {
                 type="text"
                 name="name"
                 className="input input-bordered"
-                placeholder="Enter Your Product/Pet name"
+                placeholder="Your Product/Pet Name"
                 required
               />
 
-              {/* Categories Dropdown */}
+              {/* Category */}
               <label className="label">Category</label>
               <select
                 className="select select-bordered w-full"
@@ -127,6 +119,7 @@ const AddListing = () => {
 
               {/* Price */}
               <label className="label">Price (USD)</label>
+
               {selectedCategory !== "Pets" ? (
                 <input
                   type="number"
@@ -135,7 +128,7 @@ const AddListing = () => {
                   placeholder="Price"
                   value={price}
                   onChange={(e) => setPrice(e.target.value)}
-                  required={selectedCategory !== "Pets"}
+                  required
                 />
               ) : (
                 <>
@@ -158,7 +151,7 @@ const AddListing = () => {
                 type="text"
                 name="location"
                 className="input input-bordered"
-                placeholder="City, e.g., Dhaka"
+                placeholder="Your Product/Pet Location"
                 required
               />
 
@@ -167,22 +160,22 @@ const AddListing = () => {
               <textarea
                 name="description"
                 className="textarea textarea-bordered h-24"
-                placeholder="Friendly 2-month-old puppy available for adoption..."
+                placeholder="Please Write a Vivid Description, About Your Product/Pet."
                 required
               ></textarea>
 
-              {/* Image URL */}
+              {/* Image */}
               <label className="label">Image URL</label>
               <input
                 type="url"
                 name="image"
                 className="input input-bordered"
-                placeholder="https://example.com/pet.jpg"
+                placeholder="www.https//YourImageUrl.com/"
                 required
               />
 
               {/* Date */}
-              <label className="label">Date (Available From/Pick Up)</label>
+              <label className="label">Date (Pick Up)</label>
               <input
                 type="date"
                 name="date"
@@ -190,13 +183,12 @@ const AddListing = () => {
                 required
               />
 
-              {/* Email (Read-only) */}
+              {/* Email */}
               <label className="label">Contact Email</label>
               <input
                 type="email"
-                name="email"
                 className="input input-bordered bg-gray-100"
-                value="user@example.com"
+                value={user?.email || ""}
                 readOnly
               />
 

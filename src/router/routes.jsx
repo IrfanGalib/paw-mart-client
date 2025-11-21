@@ -32,7 +32,7 @@ export const router = createBrowserRouter([
         path: "/petsAndSupplies",
         element: <PetsAndSupplies />,
         loader: async () => {
-          const res = await fetch("http://localhost:3000/listing");
+          const res = await fetch("http://localhost:3000/listings");
           if (!res.ok) throw new Error("Failed to fetch listings");
           return res.json();
         },
