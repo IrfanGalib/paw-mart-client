@@ -10,6 +10,7 @@ import Login from "../Pages/Login";
 import Register from "../Pages/Register";
 import PrivetRoutes from "../Routes/PrivetRoutes";
 import ListingDetails from "../Pages/ListingDetails";
+import CategoryFilteredProduct from "../Pages/CategoryFilteredProduct";
 
 export const router = createBrowserRouter([
   {
@@ -66,6 +67,14 @@ export const router = createBrowserRouter([
         element: (
           <PrivetRoutes>
             <MyOrders />
+          </PrivetRoutes>
+        ),
+      },
+      {
+        path: "/category-filtered-product/:category",
+        element: (
+          <PrivetRoutes>
+            <CategoryFilteredProduct />
           </PrivetRoutes>
         ),
       },

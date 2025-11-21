@@ -7,11 +7,17 @@ const PetsAndSupplies = () => {
   const listings = Array.isArray(data) ? data : [];
 
   const [filter, setFilter] = useState("All");
+  const [search, setSearch] = useState("");
 
-  const filteredListings =
-    filter === "All"
-      ? listings
-      : listings.filter((item) => item.category === filter);
+  const filteredListings = listings.filter((item) => {
+    const matchesCategory = filter === "All" ? true : item.category === filter;
+
+    const matchesSearch = item.name
+      .toLowerCase()
+      .includes(search.toLowerCase());
+
+    return matchesCategory && matchesSearch;
+  });
 
   return (
     <div>
@@ -21,8 +27,8 @@ const PetsAndSupplies = () => {
         </div>
       </div>
 
-      {/* Category Filter */}
-      <div className="max-w-7xl  mx-auto mt-6 mb-2 px-12">
+      <div className="max-w-7xl gap-4 mx-auto mt-6 mb-2 px-12 flex justify-between items-center">
+        {/* Category Filter */}
         <select
           className="select border-dashed border-[#002855] text-[#002855] w-48"
           value={filter}
@@ -34,12 +40,22 @@ const PetsAndSupplies = () => {
           <option>Accessories</option>
           <option>Pet Care Products</option>
         </select>
+
+        {/* Search by name */}
+        <input
+          type="text"
+          placeholder="Search by name..."
+          className="input input-bordered border-[#002855] border-dashed w-64"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
       </div>
 
+      {/* Listings */}
       <div className="max-w-7xl grid sm:grid-cols-1 md:grid-cols-2 justify-center items-center lg:grid-cols-3 md:pl-12 gap-3 mx-auto my-12">
         {filteredListings.length === 0 ? (
           <p className="col-span-3 text-center text-xl p-10">
-            No listings found for this category.
+            No listings found.
           </p>
         ) : (
           filteredListings.map((listing) => (
