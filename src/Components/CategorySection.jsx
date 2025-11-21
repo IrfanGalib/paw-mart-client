@@ -30,8 +30,8 @@ const CategorySection = () => {
         <span className="text-blue-500">
           <Typewriter
             words={["Pets", "Pet Food", "Accessories", "Pet Care Products"]}
-            loop={5}
-            typeSpeed={250}
+            loop={50}
+            typeSpeed={50}
           />
         </span>
       </h2>
