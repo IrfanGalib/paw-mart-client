@@ -14,7 +14,7 @@ const RecentListing = () => {
   }, []);
 
   return (
-    <div className=" max-w-7xl mx-auto mt-16">
+    <div className=" max-w-7xl mx-auto mt-16 lg:pl-0 pl-8">
       <h2 className="text-3xl font-bold text-[#002855] mb-8 text-center ">
         Recent{" "}
         <span className="text-blue-500">
