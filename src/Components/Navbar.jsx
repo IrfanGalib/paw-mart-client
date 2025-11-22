@@ -9,39 +9,31 @@ const Navbar = () => {
   const { user, signOutUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
+  // 1. Refactored User-Specific Links (Middle)
   const userLinks = (
     <>
-      <Link to="/addListing">
-        <li>
-          <a>Add Listing</a>
-        </li>
-      </Link>
-      <Link to="/myListing">
-        <li>
-          <a>My Listing</a>
-        </li>
-      </Link>
-      <Link to="/myOrders">
-        <li>
-          <a>My Orders</a>
-        </li>
-      </Link>
+      <li>
+        <Link to="/addListing">Add Listing</Link>
+      </li>
+      <li>
+        <Link to="/myListing">My Listings</Link>
+      </li>
+      <li>
+        <Link to="/myOrders">My Orders</Link>
+      </li>
     </>
   );
 
+  // 2. Base Links (Middle - Always visible)
   const baseLinks = (
     <>
-      <Link to="/">
-        <li>
-          <a>Home</a>
-        </li>
-      </Link>
-      <Link to="/petsAndSupplies">
-        <li>
-          <a>Pets & Supplies</a>
-        </li>
-      </Link>
-
+      <li>
+        <Link to="/">Home</Link>
+      </li>
+      <li>
+        <Link to="/petsAndSupplies">Pets & Supplies</Link>
+      </li>
+      {/* Conditionally include user links for logged-in users */}
       {user && userLinks}
     </>
   );
@@ -69,9 +61,13 @@ const Navbar = () => {
   };
 
   return (
-    <div className="bg-[#002855]">
+    <div className="bg-[#002855] sticky top-0 z-20"> {/* Added sticky and z-index for visibility */}
       <div className="navbar mx-auto max-w-7xl shadow-sm px-4">
+        
+        {/* ======================= LEFT: Logo + Website Name ======================= */}
         <div className="navbar-start">
+          
+          {/* Mobile Dropdown Menu (Hamburger) */}
           <div className="dropdown">
             <div
               tabIndex={0}
@@ -98,22 +94,17 @@ const Navbar = () => {
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow font-bold text-gray-800"
             >
               {baseLinks}
+              {/* Login/Register links shown only if logged out (Mobile) */}
               {!user && (
                 <>
-                  <Link to="/login">
-                    <li>
-                      <a>Login</a>
-                    </li>
-                  </Link>
-                  <Link to="/register">
-                    <li>
-                      <a>Register</a>
-                    </li>
-                  </Link>
+                  <li><Link to="/login">Login</Link></li>
+                  <li><Link to="/register">Register</Link></li>
                 </>
               )}
             </ul>
           </div>
+          
+          {/* Logo Link */}
           <Link to="/">
             <a className="btn btn-ghost text-2xl text-white font-bold">
               <PiPawPrint className="text-3xl" />
@@ -121,14 +112,18 @@ const Navbar = () => {
             </a>
           </Link>
         </div>
+
+        {/* ======================= MIDDLE: Navigation Links (Desktop) ======================= */}
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal text-white px-1 font-bold">
             {baseLinks}
           </ul>
         </div>
 
+        {/* ======================= RIGHT: Auth/User Controls ======================= */}
         <div className="navbar-end">
           {user ? (
+            /* AFTER LOGIN: Profile Avatar | Logout */
             <div className="flex items-center space-x-3">
               <div className="dropdown dropdown-end">
                 <div
@@ -146,6 +141,7 @@ const Navbar = () => {
                     />
                   </div>
                 </div>
+                {/* Avatar Dropdown Menu */}
                 <ul
                   tabIndex={0}
                   className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow text-gray-800"
@@ -158,7 +154,7 @@ const Navbar = () => {
                   <li>
                     <a
                       onClick={handleLogout}
-                      className="text-red-500 font-semibold"
+                      className="text-red-500 font-semibold cursor-pointer"
                     >
                       Logout
                     </a>
@@ -167,6 +163,7 @@ const Navbar = () => {
               </div>
             </div>
           ) : (
+            /* BEFORE LOGIN: Login | Register */
             <div className="space-x-2">
               <Link to="/login">
                 <button className="btn btn-sm text-[#002855] bg-white hover:bg-gray-100 border-none font-bold">
