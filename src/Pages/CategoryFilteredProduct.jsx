@@ -7,7 +7,7 @@ const CategoryFilteredProduct = () => {
   const [listings, setListings] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3000/listings")
+    fetch("https://paw-mart-server-theta.vercel.app/listings")
       .then((res) => res.json())
       .then((data) => {
         const filtered = data.filter(

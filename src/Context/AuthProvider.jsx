@@ -37,41 +37,42 @@ const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-  const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
-    setUser(currentUser);
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+      setUser(currentUser);
 
-    if (currentUser) {
-      const loggedUser = { email: currentUser.email };
+      if (currentUser) {
+        const loggedUser = { email: currentUser.email };
 
-      try {
-        const res = await fetch("http://localhost:3000/getToken", {
-          method: "POST",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify(loggedUser),
-        });
+        try {
+          const res = await fetch(
+            "https://paw-mart-server-theta.vercel.app/getToken",
+            {
+              method: "POST",
+              headers: {
+                "content-type": "application/json",
+              },
+              body: JSON.stringify(loggedUser),
+            }
+          );
 
-        const data = await res.json();
+          const data = await res.json();
 
-        if (data.token) {
-        
-          localStorage.setItem("token", data.token);
+          if (data.token) {
+            localStorage.setItem("token", data.token);
+          }
+        } catch (error) {
+          console.error("Token fetch failed:", error);
+          localStorage.removeItem("token");
         }
-      } catch (error) {
-        console.error("Token fetch failed:", error);
+      } else {
         localStorage.removeItem("token");
       }
-    } else {
-      localStorage.removeItem("token");
-    }
 
-    setLoading(false);
-  });
+      setLoading(false);
+    });
 
-  return () => unsubscribe();
-}, []);
-
+    return () => unsubscribe();
+  }, []);
 
   const authInfo = {
     createUser,

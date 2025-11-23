@@ -10,7 +10,7 @@ const ListingDetails = () => {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/listings`)
+    fetch(`https://paw-mart-server-theta.vercel.app/listings`)
       .then((res) => res.json())
       .then((data) => {
         const item = data.find((l) => l._id === id);
@@ -42,7 +42,7 @@ const ListingDetails = () => {
       createdAt: new Date(),
     };
 
-    fetch("http://localhost:3000/orders", {
+    fetch("https://paw-mart-server-theta.vercel.app/orders", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

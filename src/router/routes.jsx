@@ -33,7 +33,9 @@ export const router = createBrowserRouter([
         path: "/petsAndSupplies",
         element: <PetsAndSupplies />,
         loader: async () => {
-          const res = await fetch("http://localhost:3000/listings");
+          const res = await fetch(
+            "https://paw-mart-server-theta.vercel.app/listings"
+          );
           if (!res.ok) throw new Error("Failed to fetch listings");
           return res.json();
         },

@@ -54,7 +54,7 @@ const Login = () => {
           image: result.user.photoURL,
         };
 
-        fetch("http://localhost:3000/users", {
+        fetch("https://paw-mart-server-theta.vercel.app/users", {
           method: "POST",
           headers: { "content-type": "application/json" },
           body: JSON.stringify(userPayload),

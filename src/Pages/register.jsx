@@ -55,13 +55,16 @@ const Register = () => {
 
       const newUser = { name, email, image: photoURL };
 
-      const res = await fetch("http://localhost:3000/users", {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(newUser),
-      });
+      const res = await fetch(
+        "https://paw-mart-server-theta.vercel.app/users",
+        {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(newUser),
+        }
+      );
 
       const data = await res.json();
 
@@ -99,7 +102,7 @@ const Register = () => {
           image: result.user.photoURL,
         };
 
-        fetch("http://localhost:3000/users", {
+        fetch("https://paw-mart-server-theta.vercel.app/users", {
           method: "POST",
           headers: {
             "content-type": "application/json",

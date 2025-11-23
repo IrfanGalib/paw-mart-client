@@ -37,7 +37,7 @@ const AddListing = () => {
 
     console.log("Sending Data:", listingData);
 
-    fetch("http://localhost:3000/listings", {
+    fetch("https://paw-mart-server-theta.vercel.app/listings", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

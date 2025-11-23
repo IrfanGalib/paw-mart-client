@@ -22,7 +22,9 @@ const MyListings = () => {
     setLoading(true);
 
     fetch(
-      `http://localhost:3000/listings?email=${encodeURIComponent(user.email)}`,
+      `https://paw-mart-server-theta.vercel.app/listings?email=${encodeURIComponent(
+        user.email
+      )}`,
       {
         headers: {
           authorization: `Bearer ${token}`,
@@ -60,7 +62,7 @@ const MyListings = () => {
 
     try {
       const res = await fetch(
-        `http://localhost:3000/listings/${editing._id}`,
+        `https://paw-mart-server-theta.vercel.app/listings/${editing._id}`,
         {
           method: "PUT",
           headers: {
@@ -84,9 +86,7 @@ const MyListings = () => {
         Swal.fire("Saved", "Listing updated successfully.", "success");
 
         setListings((prev) =>
-          prev.map((l) =>
-            l._id === editing._id ? { ...l, ...editing } : l
-          )
+          prev.map((l) => (l._id === editing._id ? { ...l, ...editing } : l))
         );
 
         closeEdit();
@@ -119,7 +119,7 @@ const MyListings = () => {
 
       try {
         const res = await fetch(
-          `http://localhost:3000/listings/${id}`,
+          `https://paw-mart-server-theta.vercel.app/listings/${id}`,
           {
             method: "DELETE",
             headers: {
@@ -151,16 +151,12 @@ const MyListings = () => {
 
   return (
     <div className="max-w-7xl mx-auto my-12 px-6">
-      <h2 className="text-3xl text-[#002855] font-bold mb-6">
-        My Listings
-      </h2>
+      <h2 className="text-3xl text-[#002855] font-bold mb-6">My Listings</h2>
 
       {loading ? (
         <p className="text-center py-10">Loading your listings...</p>
       ) : listings.length === 0 ? (
-        <p className="text-center py-10">
-          You don't have any listings yet.
-        </p>
+        <p className="text-center py-10">You don't have any listings yet.</p>
       ) : (
         <div className="overflow-x-auto">
           <table className="table w-full">
@@ -203,9 +199,7 @@ const MyListings = () => {
                       className="btn btn-sm bg-white border-dashed border-red-500 text-red-500"
                       disabled={deletingId === l._id}
                     >
-                      {deletingId === l._id
-                        ? "Deleting..."
-                        : "Delete"}
+                      {deletingId === l._id ? "Deleting..." : "Delete"}
                     </button>
                   </td>
                 </tr>
@@ -273,11 +267,7 @@ const MyListings = () => {
               />
 
               <div className="flex justify-end gap-3">
-                <button
-                  type="button"
-                  onClick={closeEdit}
-                  className="btn"
-                >
+                <button type="button" onClick={closeEdit} className="btn">
                   Cancel
                 </button>
 

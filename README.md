@@ -6,8 +6,8 @@ A modern MERN-stack web application designed to help users adopt pets, buy pet s
 
 ## 🌐 Live Website
 
-🔗 **Live URL:** https://your-live-site-url.com  
-🔗 **Server API:** https://your-server-url.com
+🔗 **Live URL:** https://paw-mart-ddfab.web.app/
+🔗 **Server API:** https://paw-mart-server-theta.vercel.app/
 
 ---
 

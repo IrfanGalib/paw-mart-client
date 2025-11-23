@@ -7,7 +7,7 @@ const RecentListing = () => {
   const [recentListings, setRecentListings] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3000/listings/recent") // your backend route
+    fetch("https://paw-mart-server-theta.vercel.app/listings/recent") // your backend route
       .then((res) => res.json())
       .then((data) => setRecentListings(data))
       .catch((err) => console.log(err));

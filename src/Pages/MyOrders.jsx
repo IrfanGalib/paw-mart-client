@@ -15,11 +15,14 @@ const MyOrders = () => {
       return;
     }
 
-    fetch(`http://localhost:3000/orders?email=${user.email}`, {
-      headers: {
-        authorization: `Bearer ${token}`,
-      },
-    })
+    fetch(
+      `https://paw-mart-server-theta.vercel.app/orders?email=${user.email}`,
+      {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         setOrders(Array.isArray(data) ? data : []);
