@@ -139,9 +139,16 @@ const ListingDetails = () => {
                 <input
                   className="input input-bordered w-full"
                   value={user?.displayName || ""}
+                  placeholder="Name"
                   readOnly
                 />
 
+                {/* Email */}
+                <input
+                  className="input input-bordered w-full"
+                  value={user?.email || ""}
+                  readOnly
+                />
                 {/* Email */}
                 <input
                   className="input input-bordered w-full"
@@ -167,6 +174,7 @@ const ListingDetails = () => {
                 <input
                   className="input input-bordered w-full"
                   value={listing.price}
+                  placeholder="Listing Price"
                   readOnly
                 />
 

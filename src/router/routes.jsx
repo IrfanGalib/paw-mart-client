@@ -72,11 +72,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/category-filtered-product/:category",
-        element: (
-          <PrivetRoutes>
-            <CategoryFilteredProduct />
-          </PrivetRoutes>
-        ),
+        element: <CategoryFilteredProduct />,
       },
     ],
   },

@@ -1,16 +1,48 @@
-# React + Vite
+# 🐾 PawMart – Pet Adoption & Supply Marketplace
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern MERN-stack web application designed to help users adopt pets, buy pet supplies, and manage their listings easily. Fully responsive, mobile-first, and secured with Firebase authentication.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🌐 Live Website
 
-## React Compiler
+🔗 **Live URL:** https://your-live-site-url.com  
+🔗 **Server API:** https://your-server-url.com
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## ⭐ Features
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **📌 User Authentication:** Secure login & registration with Firebase (Email + Google).
+- **🐶 Recent Listings Section:** Displays the latest pet adoption/supply posts dynamically from MongoDB.
+- **🛒 My Orders Page:** Users can view their adoption requests or product orders in a clean tabular format.
+- **📦 My Listings:** Sellers can manage/edit/delete their own product or pet adoption listings.
+- **🔍 Detailed Product View:** Each listing shows images, description, price, location, and a contact option.
+- **🚫 Private Routes:** Some pages (Add Listing, My Orders, My Listings, Profile) are protected and require login.
+- **⚡ CRUD Operations:** Users can add listings, update their posts, and perform delete operations with instant toast notifications.
+- **📱 Fully Responsive:** Works smoothly across mobile, tablet, and desktop.
+- **🎨 Clean UI:** Modern card layout, consistent headings, balanced spacing, and uniform images.
+- **❌ 404 Page:** Custom “Page Not Found” page for incorrect routes.
+- **⏳ Loading State:** Global loading spinner for API fetch operations.
+
+---
+
+## 🛠️ Tech Stack
+
+**Frontend:**
+
+- React.js
+- React Router
+- Tailwind CSS
+- Firebase Auth
+- SweetAlert2
+- Swiper.js
+- React Simple Typewriter
+- React Tooltip
+
+**Backend:**
+
+- Node.js
+- Express.js
+- MongoDB
+- CORS
